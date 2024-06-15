@@ -1,6 +1,7 @@
 package com.example.springdemoapp159.controller;
 
 import com.example.springdemoapp159.model.CustomerDto;
+import com.example.springdemoapp159.model.PhoneTypeDto;
 import com.example.springdemoapp159.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +38,26 @@ public class CustomerControler {
         customerService.updateCustomer(customerDto, customerId);
     }
 
+    @DeleteMapping("/{customerId}/cards/{cardsId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeCardInCustomer(@PathVariable Integer customerId,@PathVariable Integer cardsId){
+        customerService.deleteCardsInCustomer(customerId, cardsId);
+    }
+
     @DeleteMapping("/{customerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable Integer customerId) {
         customerService.deleteCustomer(customerId);
     }
+    @PostMapping("/{customerId}/phones")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addPhoneType(@PathVariable Integer customerId, @RequestBody PhoneTypeDto phoneTypeDto){
+        customerService.addPhoneType(customerId,phoneTypeDto);
+    }
+    @DeleteMapping("/{customerId}/phones/{phoneId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePhoneInCustomer(@PathVariable Integer customerId,@PathVariable Integer phoneId){
+        customerService.deletePhoneInCustomer(customerId,phoneId);
+    }
+
 }
